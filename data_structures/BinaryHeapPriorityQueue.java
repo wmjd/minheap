@@ -22,7 +22,7 @@ public class BinaryHeapPriorityQueue<E extends Comparable <E>> implements Priori
 	}
 
 	protected Wrapper<E> a[];
-	protected int ac;
+	public int ac;
 	protected int serial;
 
 
@@ -69,8 +69,47 @@ public class BinaryHeapPriorityQueue<E extends Comparable <E>> implements Priori
  // Removes the object of highest priority that has been in the
  // PQ the longest, and returns it. Returns null if the PQ is empty.
 	public E remove(){
-		return null;
+		return removeAt(0);
 	}
+
+	public E removeAt(int i){
+		if(ac <= i)
+			return null;
+		E subroot = a[i].data;
+		a[i] = a[--ac];
+		descend(i);
+		return subroot;
+	}
+
+	public void descend(int p){
+		int r = 2*p + 2;
+		int l = 2*p + 1;
+		if(r > ac) return;
+		if(r == ac){
+			if(a[l].compareTo(a[p]) < 0)
+				swap(l,p);
+			return;
+		} else {
+			Wrapper<E> parent = a[p];
+			Wrapper<E> leftChild = a[l];
+			Wrapper<E> rightChild = a[r];
+			Wrapper<E> smallChild;
+			int s;
+			if(leftChild.compareTo(rightChild) < 0){
+				smallChild = leftChild;
+				s = l;
+			} else {
+				smallChild = rightChild;
+				s = r;
+			}
+			if(smallChild.compareTo(parent) < 0){
+				swap(p, s);
+				descend(s);
+			} 
+		}
+	}
+
+
 
  // Deletes all instances of the parameter obj from the PQ if found, and
  // returns true. Returns false if no match to the parameter obj is found.
@@ -96,7 +135,7 @@ public class BinaryHeapPriorityQueue<E extends Comparable <E>> implements Priori
 
  // Returns the number of objects currently in the PQ.
  	public int size(){
-		return 0;
+		return ac;
 	}
 
  // Returns the PQ to an empty state.
@@ -111,7 +150,7 @@ public class BinaryHeapPriorityQueue<E extends Comparable <E>> implements Priori
 
  // implementations should always return false.
 	 public boolean isFull(){
-		return (ac < DEFAULT_MAX_CAPACITY); 
+		return (ac >= DEFAULT_MAX_CAPACITY); 
 	}
 
 	private class Iter implements Iterator<E> {
