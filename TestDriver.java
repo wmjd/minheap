@@ -1,0 +1,26 @@
+import data_structures.PriorityQueue;
+//import data_structures.UnorderedLinkedListPriorityQueue;
+//import data_structures.OrderedLinkedListPriorityQueue;
+import data_structures.BinaryHeapPriorityQueue;
+import java.util.Scanner;
+import java.util.Iterator;
+
+public class TestDriver {
+	public static void main(String args[]){
+
+		PriorityQueue<Integer> PQ = new BinaryHeapPriorityQueue<Integer>();	
+
+		PQ.insert(2);
+		PQ.insert(3);
+		PQ.insert(2);
+/*		System.out.println(PQ.remove());
+		Iterator it2 = PQ.iterator();
+		while(it2.hasNext())
+			System.out.println(it2.next());
+		System.out.println(PQ.remove());
+		System.out.println(PQ.size());
+
+		}	*/
+	}
+}
+
