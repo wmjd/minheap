@@ -113,8 +113,24 @@ public class BinaryHeapPriorityQueue<E extends Comparable <E>> implements Priori
 
  // Deletes all instances of the parameter obj from the PQ if found, and
  // returns true. Returns false if no match to the parameter obj is found.
+	E delObj;
 	 public boolean delete(E obj){
+		delObj = obj;
+		deleteAux(0);
 		return true;
+	}
+	public boolean deleteAux(int i){
+		if(i >= ac) return false;	
+		int compareRes = a[i].data.compareTo(delObj);
+		if(compareRes > 0) return false;
+		if(compareRes == 0){
+			removeAt(i);
+			return deleteAux(i) || true;
+		} else {
+			boolean l = deleteAux(2*i + 1);
+			boolean r = deleteAux(2*i + 2);
+			return l || r;
+		}
 	}
 
  // Returns the object of highest priority that has been in the

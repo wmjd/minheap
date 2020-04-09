@@ -7,14 +7,16 @@ import java.util.Iterator;
 
 public class TestDriver {
 	public static void main(String args[]){
-		
-		PriorityQueue<Integer> PQ = new BinaryHeapPriorityQueue<Integer>();	
+				
 
-		PQ.insert(2);
+		PriorityQueue<String> PQ = new BinaryHeapPriorityQueue<String>();	
+
+		PQ.insert("2");
 		//System.out.println(PQ.size());
-		PQ.insert(3);
-		PQ.insert(2);
-		PQ.insert(-4);
+		PQ.insert("3");
+		PQ.insert("2");
+		PQ.insert("-4");
+		PQ.delete("2");
 		System.out.println(PQ.remove());
 		System.out.println(PQ.remove());
 		System.out.println(PQ.remove());
