@@ -116,8 +116,7 @@ public class BinaryHeapPriorityQueue<E extends Comparable <E>> implements Priori
 	E delObj;
 	 public boolean delete(E obj){
 		delObj = obj;
-		deleteAux(0);
-		return true;
+		return deleteAux(0);
 	}
 	public boolean deleteAux(int i){
 		if(i >= ac) return false;	
@@ -137,16 +136,23 @@ public class BinaryHeapPriorityQueue<E extends Comparable <E>> implements Priori
  // PQ the longest, but does NOT remove it.
  // Returns null if the PQ is empty.
 	public E peek(){
-		return null;
+		if(isEmpty()) return null;
+		else return a[0].data;
 	}
-
-
-
 
  // Returns true if the priority queue contains the specified element
  // false otherwise.
+	E contObj;
 	 public boolean contains(E obj){
-		return false;
+		contObj = obj;
+		return contAux(0);
+	}
+	public boolean contAux(int i){
+		if(i >= ac) return false;
+		int compareRes = a[i].data.compareTo(contObj);
+		if(compareRes > 0) return false;
+		if(compareRes == 0) return true;
+		return contAux(2*i + 1) || contAux(2*i + 2);
 	}
 
  // Returns the number of objects currently in the PQ.

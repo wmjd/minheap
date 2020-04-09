@@ -17,11 +17,15 @@ public class TestDriver {
 		PQ.insert("2");
 		PQ.insert("-4");
 		PQ.delete("2");
+		System.out.println(PQ.peek());
 		System.out.println(PQ.remove());
 		System.out.println(PQ.remove());
 		System.out.println(PQ.remove());
 		System.out.println(PQ.remove());
 		System.out.println(PQ.remove());
+		System.out.println(PQ.peek());
+		PQ.insert("3");
+		System.out.println(PQ.contains("3"));
 		
 /*		System.out.println(PQ.remove());
 		Iterator it2 = PQ.iterator();
