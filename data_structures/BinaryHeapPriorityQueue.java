@@ -1,6 +1,7 @@
 package data_structures;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.ConcurrentModificationException;
 
 import java.util.Scanner;
 
@@ -24,22 +25,31 @@ public class BinaryHeapPriorityQueue<E extends Comparable <E>> implements Priori
 	protected Wrapper<E> a[];
 	public int ac;
 	protected int serial;
+	int modificationCounter;
+	int maxSize;
+	public static final int DEFAULT_MAX_CAPACITY = 1000;
 
-
- // constructor
+ // constructors
 	public BinaryHeapPriorityQueue(){
+		modificationCounter = 0;
 		serial = 0;
 		ac = 0;
-		a = (Wrapper <E> []) new Wrapper[DEFAULT_MAX_CAPACITY];
+		maxSize = DEFAULT_MAX_CAPACITY;
+		a = (Wrapper <E> []) new Wrapper[maxSize];
 	}
-
-
-	 public static final int DEFAULT_MAX_CAPACITY = 4;
+	public BinaryHeapPriorityQueue(int size){
+		modificationCounter = 0;
+		serial = 0;
+		ac = 0;
+		maxSize = size;
+		a = (Wrapper <E> []) new Wrapper[maxSize];
+	}
 
  // Inserts a new object into the priority queue. Returns true if
  // the insertion is successful. If the PQ is full, the insertion
  // is aborted, and the method returns false.
 	public boolean insert(E object){
+		modificationCounter++;
 		if(isFull())
 			return false;
 		a[ac] = new Wrapper<E>(object);
@@ -73,6 +83,7 @@ public class BinaryHeapPriorityQueue<E extends Comparable <E>> implements Priori
 	}
 
 	public E removeAt(int i){
+		modificationCounter++;
 		if(ac <= i)
 			return null;
 		E subroot = a[i].data;
@@ -166,13 +177,21 @@ public class BinaryHeapPriorityQueue<E extends Comparable <E>> implements Priori
 
  // implementations should always return false.
 	public boolean isFull(){
-		return (ac >= DEFAULT_MAX_CAPACITY); 
+		return (ac >= maxSize); 
 	}
 
 	private class Iter implements Iterator<E> {
-		int i = 0;
+		int i;
+		int state;
+
+		public Iter(){
+			i = 0;
+			state = modificationCounter;
+		}
 		public boolean hasNext(){
-			return (i < ac) ? false : true;
+			if(state != modificationCounter)
+				throw new ConcurrentModificationException();
+			return i < ac;
 		}
 		public E next(){
 			if (!hasNext())
