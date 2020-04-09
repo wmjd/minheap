@@ -114,7 +114,7 @@ public class BinaryHeapPriorityQueue<E extends Comparable <E>> implements Priori
  // Deletes all instances of the parameter obj from the PQ if found, and
  // returns true. Returns false if no match to the parameter obj is found.
 	E delObj;
-	 public boolean delete(E obj){
+	public boolean delete(E obj){
 		delObj = obj;
 		return deleteAux(0);
 	}
@@ -143,7 +143,7 @@ public class BinaryHeapPriorityQueue<E extends Comparable <E>> implements Priori
  // Returns true if the priority queue contains the specified element
  // false otherwise.
 	E contObj;
-	 public boolean contains(E obj){
+	public boolean contains(E obj){
 		contObj = obj;
 		return contAux(0);
 	}
@@ -156,22 +156,16 @@ public class BinaryHeapPriorityQueue<E extends Comparable <E>> implements Priori
 	}
 
  // Returns the number of objects currently in the PQ.
- 	public int size(){
-		return ac;
-	}
+ 	public int size(){return ac;}
 
  // Returns the PQ to an empty state.
-	 public void clear(){
-		;
-	}
+	public void clear(){ac = 0;}
 
  // Returns true if the PQ is empty, otherwise false
- 	public boolean isEmpty(){
-		return (ac <= 0);
-	}
+ 	public boolean isEmpty(){return (ac <= 0);}
 
  // implementations should always return false.
-	 public boolean isFull(){
+	public boolean isFull(){
 		return (ac >= DEFAULT_MAX_CAPACITY); 
 	}
 

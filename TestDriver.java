@@ -25,6 +25,7 @@ public class TestDriver {
 		System.out.println(PQ.remove());
 		System.out.println(PQ.peek());
 		PQ.insert("3");
+		PQ.clear();
 		System.out.println(PQ.contains("3"));
 		
 /*		System.out.println(PQ.remove());
